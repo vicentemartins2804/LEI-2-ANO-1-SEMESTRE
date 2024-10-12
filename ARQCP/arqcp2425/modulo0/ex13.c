@@ -8,8 +8,7 @@ char get_ascii_char(int c){
 int count_char(char str[], int c){
 	int contador = 0;
 	char caracter = get_ascii_char(c);
-	int nrCaracteres = strlen(str);
-	for (int i = 0; i < nrCaracteres; i++){
+	for (int i = 0; str[i] != '\0'; i++){
 		if (caracter == str[i]){
 			contador++;
 		}

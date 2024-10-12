@@ -21,7 +21,7 @@ int count_value(int vec[], int n, int value){
 
 int main(void){
 	int vec[] = {1,2,2,4,5,5,5,6,7,7,7,7,8};
-	int n = sizeof(vec) / sizeof(vec[0]);
+	int n = 13;
 	int value = 7;
 	
 	printf("O valor '%d' está presente no vetor %d vezes.", value, count_value(vec, n, value));

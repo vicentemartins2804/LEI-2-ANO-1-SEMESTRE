@@ -10,10 +10,11 @@ int get_ascii_code(char c){
 }
 
 int fake_hash(char str[]){
-	int nrCaracteres = strlen(str), soma = 0;
+	int i = 0, soma = 0;
 	
-	for (int i = 0; i < nrCaracteres; i++){
+	while (str[i] != '\0'){
 		soma = sum(soma, get_ascii_code(str[i]));
+		i++;
 	}
 	
 	return soma;

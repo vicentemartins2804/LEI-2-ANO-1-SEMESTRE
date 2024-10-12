@@ -2,13 +2,13 @@
 #include <string.h>
 
 int count_words(char str[]){
-	int contador = 1;
-	int numeroDeCaracteres = strlen(str);
+	int contador = 1, i = 0;
 	
-	for(int i = 0; i < numeroDeCaracteres; i++){
+	while(str[i] != '\0'){
 		if (str[i] == ' '){
 			contador++;
 		}
+		i++;
 	}
 	return contador;
 }
