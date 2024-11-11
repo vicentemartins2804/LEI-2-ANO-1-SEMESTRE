@@ -14,4 +14,7 @@ char verify_flags(void);
 char isMultiple(void);
 int getArea(void);
 int getAreaEx14(void);
+int compute(void);
+int steps(void);
+int calculator(void);
 #endif

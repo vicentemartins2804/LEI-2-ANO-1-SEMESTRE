@@ -1,5 +1,5 @@
 .section .data
-    .global op1, op2, op3, op4, s1, n1, n2, a, b, c, d, op3ex10, aEx12, bEx12, v1, v2, lenght1, lenght2, height
+    .global op1, op2, op3, op4, s1, n1, n2, a, b, c, d, op3ex10, aEx12, bEx12, v1, v2, lenght1, lenght2, height, aEx15, bEx15, cEx15, dEx15, num, number1, number2, operation
     
 op3:
     .quad 5	              
@@ -26,8 +26,6 @@ heightex14:
 #------------------
 
 .global sum           
-
-	CONST = 20
 	
 sum:
     movl op1(%rip), %ecx     
@@ -40,6 +38,8 @@ sum:
 #------------------
 
 .global another_sum        
+
+	CONST = 20
 
 another_sum:
     movl $CONST, %eax        
@@ -182,8 +182,6 @@ sum3ints:
 
 .global verify_flags
 
-.global verify_flags
-
 verify_flags:
     movw v1(%rip), %ax
     addw v2(%rip), %ax
@@ -255,3 +253,133 @@ getAreaEx14:
 #------------------
 # Exercício 15
 #------------------ 
+
+.global compute
+
+compute:
+	movl aEx15(%rip), %edx
+	movl bEx15(%rip), %ecx
+	movl cEx15(%rip), %eax
+	movl dEx15(%rip), %esi
+	
+	cmpl $0, %esi			
+	je erro					
+	imull %edx, %ecx		
+	imull %eax,%edx			
+	subl %edx, %ecx		
+	movl %ecx, %eax			
+	cltd					
+	idivl %esi				
+	jmp end					
+	
+erro:
+	movl $0, %eax			
+end : 
+	ret
+		
+#------------------
+# Exercício 16
+#------------------
+
+.global steps
+
+steps:
+    movq num(%rip), %rax  
+	movq $3, %rcx        
+	cqo                  
+	idivq %rcx
+	addq $6, %rax         
+	movq $3, %rcx         
+	imulq %rcx            
+	addq $12, %rax       
+	movq num(%rip), %rcx  
+	subq %rcx, %rax       
+	subq $4, %rax    
+	
+	ret	
+
+#------------------
+# Exercício 16
+#------------------
+
+.global calculator
+
+calculator:
+	movl operation(%rip), %esi
+	
+	cmp $1, %esi
+	je addition
+	
+	cmp $2, %esi
+	je subtraction
+	
+	cmp $3, %esi
+	je multiplication
+	
+	cmp $4, %esi
+	je division
+	
+	cmp $5, %esi
+	je modulus
+	
+	cmp $6, %esi
+	je power2
+	
+	cmp $7, %esi
+	je power3
+	ret
+	
+addition:
+	movl number1(%rip), %eax
+	movl number2(%rip), %ebx
+	addl %ebx, %eax
+	ret
+
+subtraction:
+	movl number1(%rip), %eax
+	movl number2(%rip), %ebx
+	subl %ebx, %eax
+	ret
+
+multiplication:
+	movl number1(%rip), %eax
+	movl number2(%rip), %ebx
+	imull %ebx
+	ret
+	
+division:
+	movl number1(%rip), %eax
+	xorl %edx, %edx
+	movl number2(%rip), %ebx
+	cmp $0, %ebx
+	je wrong_div
+	idivl %ebx
+	ret
+
+wrong_div:
+	movl $0, %eax
+	ret
+	
+modulus:
+	movl number1(%rip), %eax
+	cmp $0, %eax
+	jl negativo
+	ret
+
+negativo:
+	neg %eax
+	ret
+	
+power2:
+	movl number1(%rip), %eax
+	imull %eax
+	ret
+	
+power3:
+	movl number1(%rip), %eax
+	movl number1(%rip), %ebx
+	imull %eax
+	imull %ebx
+	ret
+	
+
