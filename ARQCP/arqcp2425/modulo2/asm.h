@@ -17,4 +17,8 @@ int getAreaEx14(void);
 int compute(void);
 int steps(void);
 int calculator(void);
+char check_num(void);
+short needed_time(void);
+int sigma(void);
+int new_salary(void);
 #endif

@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include "asm.h"
 
-int op1 = 0, op2 = 0, op3ex10 = 0, a = 0, aEx15 = 0, bEx15 = 0, cEx15 = 0, dEx15 = 0, number1 = 0, number2 = 0, operation = 0;
+int op1 = 0, op2 = 0, op3ex10 = 0, a = 0, aEx15 = 0, bEx15 = 0, cEx15 = 0, dEx15 = 0, number1 = 0, number2 = 0, operation = 0, nn = 0;
 extern long op3, op4;
 long aEx12, bEx12, num;
-short s1 = 0, s2 = 0, n1 = 0, n2 = 0, c = 0, d = 0, v1 = 0, v2 = 0, length1 = 0, length2 = 0, height = 0;
-char b = 0;
+short s1 = 0, s2 = 0, n1 = 0, n2 = 0, c = 0, d = 0, v1 = 0, v2 = 0, length1 = 0, length2 = 0, height = 0, numEx20 = 0, codeSalary = 0, currentSalary = 0;
+char b = 0, desired = 0, current = 0;
 
 int main(void) {
-    int result, anotherResult, area, areaEx14, resultEx15, resultEx16, casenum, calculatorResult;
-    char isMultipleFlag, verifyFlags;
+    int result, anotherResult, area, areaEx14, resultEx15, resultEx16, casenum, calculatorResult, sigmaRes, salary;
+    char isMultipleFlag, verifyFlags, checkNum;
     long yetAnotherResult, sumAndSubtract, sum3intsOps;
-    short swappedBytes, exchangedBytes, crossedSubBytes, crossedSubBytespt2;
+    short swappedBytes, exchangedBytes, crossedSubBytes, crossedSubBytespt2, neededTime;
     
 	printf("Escreve o número do exercício: ");
     scanf("%d", &casenum);
@@ -274,6 +274,61 @@ int main(void) {
 			printf("------------------\n");
 			calculatorResult = calculator();
 			printf("calculator = %d\n\n", calculatorResult);
+			break;
+			
+		case 18:
+		
+			printf("Digite o valor de 'n': ");
+			scanf("%d", &nn);
+    
+			printf("\n------------------\n");
+			printf("Exercício 18\n");
+			printf("------------------\n");
+			sigmaRes = sigma();
+			printf("sigma = %d\n\n", sigmaRes);
+			break;
+			
+		case 19:
+		
+			printf("Digite a temperatura atual: ");
+			scanf("%hhd", &current);
+			printf("Digite a temperatura desejada: ");
+			scanf("%hhd", &desired);
+    
+    
+			printf("\n------------------\n");
+			printf("Exercício 19\n");
+			printf("------------------\n");
+			neededTime = needed_time();
+			printf("needed_time = %hd\n\n", neededTime);
+			break;
+		
+		case 20:
+		
+			printf("Digite o valor: ");
+			scanf("%hd", &numEx20);
+    
+    
+			printf("\n------------------\n");
+			printf("Exercício 20\n");
+			printf("------------------\n");
+			checkNum = check_num();
+			printf("check_num = %hd\n\n", checkNum);
+			break;
+			
+		case 21:
+		
+			printf("Digite o salário atual: ");
+			scanf("%hd", &currentSalary);
+		
+			printf("Digite o seu código: ");
+			scanf("%hd", &codeSalary);
+    
+			printf("\n------------------\n");
+			printf("Exercício 21\n");
+			printf("------------------\n");
+			salary = new_salary();
+			printf("new_salary = %d\n\n", salary);
 			break;
 	}
     

@@ -1,5 +1,11 @@
 .section .data
-    .global op1, op2, op3, op4, s1, n1, n2, a, b, c, d, op3ex10, aEx12, bEx12, v1, v2, lenght1, lenght2, height, aEx15, bEx15, cEx15, dEx15, num, number1, number2, operation
+    .global op1, op2, op3, op4, s1, n1, n2, a, b, c, d, op3ex10, aEx12
+    .global bEx12, v1, v2, lenght1, lenght2, height, aEx15, bEx15, cEx15
+    .global dEx15, num, number1, number2, operation, numEx20, current
+    .global desired, nn, A18, B18, codeSalary, currentSalary
+    
+.equ A18, 3
+.equ B18, 4
     
 op3:
     .quad 5	              
@@ -382,4 +388,149 @@ power3:
 	imull %ebx
 	ret
 	
+#------------------
+# Exercício 18
+#------------------
 
+.global sigma
+
+sigma:
+    movl nn(%rip), %edx   # Load n into %edx
+
+    movl $1, %ecx         # Set i = 1 in %ecx (loop counter)
+    movl $0, %edi         # Set accumulator result = 0
+
+    movl $A18, %eax       # Load A18 = 3 into %eax
+    imull %eax, %eax      # Compute A^2 in %eax
+    imull $A18, %eax      # Compute A^3 in %eax (A^3 is stored in %eax)
+
+loop:
+    cmp %edx, %ecx        # Check if i > n
+    jg end18              # If i > n, exit the loop
+
+    movl %ecx, %ebx       # Load i into %ebx
+    imull %ebx, %ebx      # Compute i^2 in %ebx
+    movl %eax, %esi       # Load A^3 into %esi
+    imull %ebx, %esi      # Compute i^2 * A^3 in %esi
+
+    movl $B18, %ebx       # Load B (4) into %ebx
+    cdq                   # Sign extend %esi for division
+    idivl %ebx            # Compute (i^2 * A^3) / B, result in %eax
+
+    addl %eax, %edi       # Accumulate result in %edi
+
+    incl %ecx             # Increment i
+    jmp loop              # Repeat the loop
+
+end18:
+    movl %edi, %eax       # Move final result to %eax
+    ret                   # Return from function
+
+
+	
+#------------------
+# Exercício 19
+#------------------
+
+.global needed_time
+
+needed_time:
+	movsbw current(%rip), %ax
+	movsbw desired(%rip), %bx
+	
+	cmpw %ax, %bx
+	jg moreTemp
+	jl lessTemp
+	
+moreTemp:
+	movsbw current(%rip), %ax
+	movsbw desired(%rip), %bx
+	
+	subw %bx, %ax
+	negw %ax
+	movw $180, %cx
+	imulw %cx
+	ret
+
+lessTemp:
+	movsbw current(%rip), %ax
+	movsbw desired(%rip), %bx
+	
+	subw %bx, %ax
+	movw $240, %cx
+	imulw %cx
+	ret
+	
+
+#------------------
+# Exercício 20
+#------------------
+
+
+.global check_num
+
+check_num:
+	movswq numEx20(%rip), %rax  
+	mov $2, %rcx           
+	cqto                   
+
+	idivq %rcx              
+
+	movswq numEx20(%rip), %rbx  
+	cmp $0, %rbx
+	jl negative         
+	jge positive            
+	  
+positive:
+	cmp $0, %rdx           
+	je even_positive       
+	movq $4, %rax          
+	ret
+
+even_positive:
+	movq $3, %rax
+	ret
+	
+negative:
+	cmp $0, %rdx
+	je even_negative
+	movq $2, %rax
+	ret
+
+even_negative:
+	movq $1, %rax
+	ret
+
+#------------------
+# Exercício 21
+#------------------
+
+.global new_salary
+
+new_salary:
+	movswl codeSalary(%rip), %ecx
+	movswl currentSalary(%rip), %eax
+	
+	cmp $10, %ecx
+	je manager
+	
+	cmp $11, %ecx
+	je engineer
+	
+	cmp $12, %ecx
+	je technician
+
+	addl $250, %eax
+	ret
+	
+manager:
+	addl $500, %eax
+	ret
+	
+engineer:
+	addl $400, %eax
+	ret
+	
+technician:
+	addl $300, %eax
+	ret
